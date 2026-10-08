@@ -42,6 +42,13 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- H2 DATABASE FOR TESTING -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
+
         <!-- VALIDATION -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
