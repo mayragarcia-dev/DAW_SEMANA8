@@ -99,4 +99,32 @@ class ProductoServiceTest {
         assertEquals(2, resultado.size());
         verify(repo).findByNombreContaining("Monitor");
     }
+
+    // TEST OBTENER - Producto no existe
+    @Test
+    void testObtenerProductoNoExistente() {
+        when(repo.findById(99L)).thenReturn(Optional.empty());
+
+        Producto resultado = service.buscarPorId(99L);
+
+        assertNull(resultado);
+        verify(repo).findById(99L);
+    }
+
+    // TEST ACTUALIZAR (usa guardar con ID existente - service solo guarda)
+    @Test
+    void testActualizarProducto() {
+        Producto actualizado = new Producto(1L, "Monitor nuevo", 600, 15, "Electronicos");
+
+        when(repo.save(actualizado)).thenReturn(actualizado);
+
+        Producto resultado = service.guardar(actualizado);
+
+        assertNotNull(resultado);
+        assertEquals("Monitor nuevo", resultado.getNombre());
+        assertEquals(600, resultado.getPrecio());
+        assertEquals(15, resultado.getStock());
+
+        verify(repo).save(actualizado);
+    }
 }
